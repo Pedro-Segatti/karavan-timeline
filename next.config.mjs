@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
   },
-  basePath: '/karavan-timeline',
-  assetPrefix: '/karavan-timeline/',
+  basePath: isProd ? '/karavan-timeline' : '',
+  assetPrefix: isProd ? '/karavan-timeline/' : '',
   reactCompiler: true,
 };
 
