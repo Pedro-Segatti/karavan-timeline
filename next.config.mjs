@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
   basePath: '/karavan-timeline',
+  assetPrefix: '/karavan-timeline/',
   reactCompiler: true,
 };
 
