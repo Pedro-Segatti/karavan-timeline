@@ -13,8 +13,8 @@ const story = [
     date: "",
     title: "Karavan ACF",
     text: "A história por trás do primeiro estrangeiro a competir no SEMA Show.",
-    bg: `${prefix}/favicon.png`,
-    img: "/logo.png",
+    bg: `${prefix}/logo1.png`,
+    img: `${prefix}/logo.png`,
   },
   {
     id: 2,

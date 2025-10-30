@@ -11,13 +11,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const isProd = process.env.NODE_ENV === 'production';
+const prefix = isProd ? '/karavan-timeline' : '';
+
 export const metadata = {
   title: "Karavan ACF Timeline",
   description:
     "Essa é a linha do tempo da Karavan, a caravan com K, que representará o ACF e todo o Brasil no Sema Show 2025",
   icons: {
-    icon: "/logo1.png",
-    shortcut: "/logo1.png",
+    icon: `${prefix}/logo1.png`,
+    shortcut: `${prefix}/logo1.png`,
   },
 };
 
