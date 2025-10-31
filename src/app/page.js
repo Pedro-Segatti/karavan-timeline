@@ -2,246 +2,313 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Scrollama, Step } from "react-scrollama";
 import { FaInstagram } from "react-icons/fa";
-import { useState, useRef } from "react";
-
-const isProd = process.env.NODE_ENV === 'production';
-const prefix = isProd ? '/karavan-timeline' : '';
-
-const story = [
-  {
-    id: 1,
-    date: "",
-    title: "Karavan ACF",
-    text: "A história por trás do primeiro estrangeiro a competir no SEMA Show.",
-    bg: `${prefix}/logo1.png`,
-    img: `${prefix}/logo.png`,
-  },
-  {
-    id: 2,
-    date: "01/05/2024",
-    title: "O começo de tudo",
-    text: "Escolha do novo carro do canal.",
-    bg: `${prefix}/story2.jpg`,
-  },
-  {
-    id: 3,
-    date: "10/05/2024",
-    title: "A avaliação de um especialista",
-    text: "Um momento decisivo para a continuação do projeto: a avaliação do Alemão.",
-    bg: `${prefix}/story3.jpg`,
-  },
-  {
-    id: 4,
-    date: "27/01/2025",
-    title: "Primeira grande empreitada – Funilaria",
-    text: "A Split Custom assume o projeto de funilaria e pintura da Karavan.",
-    bg: `${prefix}/story4.jpg`,
-  },
-  {
-    id: 5,
-    date: "01/05/2025",
-    title: "A nova identidade da Karavan",
-    text: "Após muita dedicação, é revelada a nova identidade visual da Karavan.",
-    img: `${prefix}/story5.jpg`,
-    bg: `${prefix}/bgstory5.jpg`,
-  },
-  {
-    id: 6,
-    date: "18/07/2025",
-    title: "A escolha do coração",
-    text: "Início da transformação mecânica da Karavan com a escolha do motor K24, do Honda Accord.",
-    bg: `${prefix}/story6.jpg`,
-  },
-  {
-    id: 7,
-    date: "01/09/2025",
-    title: "Revisão e preparação do motor",
-    text: "A Retífica Projeto entra em ação, realizando a primeira revisão e aferição de medidas do motor, preparando-o para os pistões forjados.",
-    bg: `${prefix}/story7.jpg`,
-  },
-  {
-    id: 8,
-    date: "05/09/2025",
-    title: "Ajustes estruturais para o motor",
-    text: "O Tiozão realiza as adaptações necessárias na estrutura da Karavan para receber o motor K24.",
-    bg: `${prefix}/story8.jpg`,
-  },
-  {
-    id: 9,
-    date: "08/09/2025",
-    title: "Fechamento do motor",
-    text: "Após aguardar algumas peças, o Tiozão finaliza o fechamento do motor.",
-    bg: `${prefix}/story9.jpg`,
-  },
-  {
-    id: 10,
-    date: "12/09/2025",
-    title: "Escolha do pulmão",
-    text: "Escolhido um turbo Garrett G35-1050.",
-    bg: `${prefix}/story10.jpg`,
-  },
-  {
-    id: 11,
-    date: "15/09/2025",
-    title: "Escolha do cérebro",
-    text: "Não poderia ser diferente: a FT700 Plus, da FuelTech, compõe o projeto.",
-    bg: `${prefix}/story11.jpg`,
-  },
-  {
-    id: 12,
-    date: "15/09/2025",
-    title: "A cereja do bolo",
-    text: "Como se não bastasse o K24, uma transmissão ZF8HP fecha com chave de ouro o conjunto.",
-    bg: `${prefix}/story12.jpg`,
-  },
-  {
-    id: 13,
-    date: "30/09/2025",
-    title: "Atrasos, dúvidas e incertezas",
-    text: "Diversos imprevistos atrasam o projeto, mas a vontade de ver a Karavan nas ruas só aumenta. As madrugadas de trabalho viram rotina.",
-    bg: `${prefix}/story13.jpg`,
-  },
-  {
-    id: 14,
-    date: "03/10/2025",
-    title: "Plotagem",
-    text: "Devido à documentação e para proteger a pintura, a Karavan recebe uma plotagem cinza.",
-    bg: `${prefix}/story14.jpg`,
-  },
-  {
-    id: 15,
-    date: "03/10/2025",
-    title: "Marco histórico",
-    text: "Primeira volta da Karavan nas ruas: validação e testes iniciais.",
-    bg: `${prefix}/story15.jpg`,
-  },
-  {
-    id: 16,
-    date: "06/10/2025",
-    title: "Primeiro trecho da viagem – Rumo a Porto Alegre",
-    text: "Impossível não se emocionar com o apoio da galera na estrada.",
-    bg: `${prefix}/story17.jpg`,
-    img: `${prefix}/story16.jpg`,
-  },
-  {
-    id: 17,
-    date: "06/10/2025",
-    title: "Primeiro problema na estrada",
-    text: "Após algumas falhas, é necessário trocar o óleo do câmbio ainda na estrada.",
-    bg: `${prefix}/story20.jpg`,
-    img: `${prefix}/story19.jpg`,
-  },
-  {
-    id: 18,
-    date: "06/10/2025",
-    title: "Carro de apoio de respeito",
-    text: "Gui, da Tonimek, aparece como carro de apoio na viagem.",
-    bg: `${prefix}/story18.jpg`,
-  },
-  {
-    id: 19,
-    date: "08/10/2025",
-    title: "Amigos que sempre serão lembrados",
-    text: "A Karavan apresenta problemas no câmbio e na dirigibilidade. Pilô, Dio e Sek fazem milagres para trocar o câmbio e resolver os problemas.",
-    bg: `${prefix}/story22.jpg`,
-    img: `${prefix}/story21.jpg`,
-  },
-  {
-    id: 20,
-    date: "10/10/2025",
-    title: "Últimos ajustes na FuelTech – Rumo à Argentina",
-    text: "Última parada antes de cruzar a fronteira: ajustes finais no câmbio e recepção incrível de todos os apoiadores. A história segue sendo escrita.",
-    bg: `${prefix}/story24.jpg`,
-    img: `${prefix}/story23.jpg`,
-  },
-  {
-    id: 21,
-    date: "13/10/2025",
-    title: "Primeira troca de pneu",
-    text: "O esperado aconteceu: primeira troca de pneu na estrada. Todos foram revisados e ajustados.",
-    bg: `${prefix}/story25.jpg`,
-  },
-  {
-    id: 22,
-    date: "13/10/2025",
-    title: "Chegada à Argentina",
-    text: "Chegada à Argentina: missão cumprida com sucesso até aqui.",
-    bg: `${prefix}/story26.jpg`,
-  },
-  {
-    id: 23,
-    date: "14/10/2025",
-    title: "Mudança de planos",
-    text: "A Tonimek enfrenta problemas na aduana, exigindo mudança de planos e retorno ao Brasil. Artur mantém um trabalho impecável nas lives e na produção de conteúdo.",
-    bg: `${prefix}/story27.jpg`,
-  },
-  {
-    id: 24,
-    date: "14/10/2025",
-    title: "Plano B em ação",
-    text: "Após um susto, a Karavan é revisada na Raptors Motors Force, em São Paulo, e segue viagem de avião rumo aos EUA.",
-    bg: `${prefix}/story28.jpg`,
-    img: `${prefix}/story29.jpg`,
-  },
-  {
-    id: 25,
-    date: "23/10/2025",
-    title: "Chegamos aos EUA!",
-    text: "Após algumas incertezas, finalmente a Karavan desembarca nos Estados Unidos.",
-    bg: `${prefix}/story30.jpg`,
-  },
-  {
-    id: 26,
-    date: "23/10/2025",
-    title: "Mais um câmbio",
-    text: "Após novos problemas, a Karavan recebe um câmbio ZF8HP americano. A Mapgreen entra em ação, com mais uma demonstração de apoio incondicional da comunidade.",
-    bg: `${prefix}/story31.jpg`,
-    img: `${prefix}/story32.jpg`,
-  },
-  {
-    id: 27,
-    date: "27/10/2025",
-    title: "Inovação e tecnologia no projeto",
-    text: "Fanatec em um carro de rua? Parece loucura, mas é história sendo escrita. A Karavan agora conta com um seletor de marchas Fanatec — pioneirismo total.",
-    bg: `${prefix}/story33.jpg`,
-  },
-  {
-    id: 28,
-    date: "28/10/2025",
-    title: "Atlanta é logo ali – e mais problemas",
-    text: "Velocidades mais altas evidenciam falhas: o diferencial precisa ser trocado. Parada crucial na FuelTech USA, onde novos colaboradores e amigos se juntam ao projeto.",
-    bg: `${prefix}/story34.jpg`,
-  },
-  {
-    id: 29,
-    date: "29/10/2025",
-    title: "Vamos para Vegas!",
-    text: "Novos amigos no projeto, algumas loucuras (como comprar um ônibus), um pequeno acidente e malas prontas: a próxima parada é o SEMA Show.",
-    bg: `${prefix}/story35.jpg`,
-  },
-];
+import { useState, useRef, useEffect } from "react";
 
 export default function StoryPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAtEnd, setIsAtEnd] = useState(false);
+  const [autoScroll, setAutoScroll] = useState(false); // 🌀 controle de rolagem
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({ container: containerRef });
-
   const scaleBackground = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
   const blurBackground = useTransform(scrollYProgress, [0, 1], ["0px", "4px"]);
+
+  const isProd = process.env.NODE_ENV === 'production';
+  const prefix = isProd ? '/karavan-timeline' : '';
+
+  const story = [
+    {
+      id: 1,
+      date: "",
+      title: "Karavan ACF",
+      text: "The story behind the first foreigner to compete at the SEMA Show.",
+      bg: `${prefix}/logo1.png`,
+      img: `${prefix}/logo.png`,
+    },
+    {
+      id: 2,
+      date: "05/01/2024",
+      title: "The beginning of everything",
+      text: "Choosing the new car for the channel.",
+      bg: `${prefix}/story2.jpg`,
+    },
+    {
+      id: 3,
+      date: "05/10/2024",
+      title: "The evaluation of a specialist",
+      text: "A decisive moment for the project’s continuation: Alemão’s evaluation.",
+      bg: `${prefix}/story3.jpg`,
+    },
+    {
+      id: 4,
+      date: "01/27/2025",
+      title: "First major milestone – Bodywork",
+      text: "Split Custom takes over the Karavan’s bodywork and paint project.",
+      bg: `${prefix}/story4.jpg`,
+    },
+    {
+      id: 5,
+      date: "05/01/2025",
+      title: "The new identity of the Karavan",
+      text: "After much dedication, the new visual identity of the Karavan is revealed.",
+      img: `${prefix}/story5.jpg`,
+      bg: `${prefix}/bgstory5.jpg`,
+    },
+    {
+      id: 6,
+      date: "07/18/2025",
+      title: "The choice of the heart",
+      text: "The mechanical transformation begins with the selection of the K24 engine from the Honda Accord.",
+      bg: `${prefix}/story6.jpg`,
+    },
+    {
+      id: 7,
+      date: "09/01/2025",
+      title: "Engine inspection and preparation",
+      text: "Projeto Engine Shop steps in, performing measurements and preparing it for forged pistons.",
+      bg: `${prefix}/story7.jpg`,
+    },
+    {
+      id: 8,
+      date: "09/05/2025",
+      title: "Structural adjustments for the engine",
+      text: "Tiozão performs the necessary chassis adaptations for the K24 installation.",
+      bg: `${prefix}/story8.jpg`,
+    },
+    {
+      id: 9,
+      date: "09/08/2025",
+      title: "Engine assembly completed",
+      text: "After waiting for a few parts, Tiozão completes the engine assembly.",
+      bg: `${prefix}/story9.jpg`,
+    },
+    {
+      id: 10,
+      date: "09/12/2025",
+      title: "The choice of the lungs",
+      text: "A Garrett G35-1050 turbo is chosen.",
+      bg: `${prefix}/story10.jpg`,
+    },
+    {
+      id: 11,
+      date: "09/15/2025",
+      title: "The brain of the project",
+      text: "As expected, the FuelTech FT700 Plus joins the setup.",
+      bg: `${prefix}/story11.jpg`,
+    },
+    {
+      id: 12,
+      date: "09/15/2025",
+      title: "The cherry on top",
+      text: "Along with the K24, a ZF8HP transmission completes the masterpiece.",
+      bg: `${prefix}/story12.jpg`,
+    },
+    {
+      id: 13,
+      date: "09/30/2025",
+      title: "Delays, doubts, and uncertainties",
+      text: "Several setbacks slow down progress, but motivation keeps growing. Long nights become routine.",
+      bg: `${prefix}/story13.jpg`,
+    },
+    {
+      id: 14,
+      date: "10/03/2025",
+      title: "Wrapping it up",
+      text: "Due to paperwork and to protect the paint, the Karavan receives a gray wrap.",
+      bg: `${prefix}/story14.jpg`,
+    },
+    {
+      id: 15,
+      date: "10/03/2025",
+      title: "A historic milestone",
+      text: "The Karavan’s first run on the streets — validation and initial tests.",
+      bg: `${prefix}/story15.jpg`,
+    },
+    {
+      id: 16,
+      date: "10/06/2025",
+      title: "First leg of the trip – Heading to Porto Alegre",
+      text: "It’s impossible not to feel emotional seeing all the support along the road.",
+      bg: `${prefix}/story17.jpg`,
+      img: `${prefix}/story16.jpg`,
+    },
+    {
+      id: 17,
+      date: "10/06/2025",
+      title: "First issue on the road",
+      text: "After some failures, a transmission oil change is needed right on the road.",
+      bg: `${prefix}/story20.jpg`,
+      img: `${prefix}/story19.jpg`,
+    },
+    {
+      id: 18,
+      date: "10/06/2025",
+      title: "Support car on point",
+      text: "Gui, from Tonimek, steps in as the support vehicle during the trip.",
+      bg: `${prefix}/story18.jpg`,
+    },
+    {
+      id: 19,
+      date: "10/08/2025",
+      title: "Friends that will never be forgotten",
+      text: "The Karavan faces transmission issues, but Pilô, Dio, and Sek perform miracles to fix it.",
+      bg: `${prefix}/story22.jpg`,
+      img: `${prefix}/story21.jpg`,
+    },
+    {
+      id: 20,
+      date: "10/10/2025",
+      title: "Final tuning at FuelTech – Heading to Argentina",
+      text: "Final stop before crossing the border: last adjustments and a warm reception from everyone.",
+      bg: `${prefix}/story24.jpg`,
+      img: `${prefix}/story23.jpg`,
+    },
+    {
+      id: 21,
+      date: "10/13/2025",
+      title: "First tire change",
+      text: "It finally happened — first tire change on the road. Everything was checked and adjusted.",
+      bg: `${prefix}/story25.jpg`,
+    },
+    {
+      id: 22,
+      date: "10/13/2025",
+      title: "Arrival in Argentina",
+      text: "Arrival in Argentina: mission accomplished so far.",
+      bg: `${prefix}/story26.jpg`,
+    },
+    {
+      id: 23,
+      date: "10/14/2025",
+      title: "Change of plans",
+      text: "Tonimek faces customs issues, forcing a change of plans and return to Brazil. Artur keeps the livestream and content flawless.",
+      bg: `${prefix}/story27.jpg`,
+    },
+    {
+      id: 24,
+      date: "10/14/2025",
+      title: "Plan B in action",
+      text: "After a scare, the Karavan is serviced at Raptors Motors Force in São Paulo and continues by plane to the U.S.",
+      bg: `${prefix}/story28.jpg`,
+      img: `${prefix}/story29.jpg`,
+    },
+    {
+      id: 25,
+      date: "10/23/2025",
+      title: "We made it to the U.S.!",
+      text: "After some uncertainty, the Karavan finally lands in the United States.",
+      bg: `${prefix}/story30.jpg`,
+    },
+    {
+      id: 26,
+      date: "10/23/2025",
+      title: "Another transmission",
+      text: "After new problems, the Karavan receives an American ZF8HP transmission. Mapgreen steps in again — the community’s support is unbelievable.",
+      bg: `${prefix}/story31.jpg`,
+      img: `${prefix}/story32.jpg`,
+    },
+    {
+      id: 27,
+      date: "10/27/2025",
+      title: "Innovation and technology",
+      text: "Fanatec in a street car? It sounds crazy, but it’s history being made. The Karavan now features a Fanatec shifter — total innovation.",
+      bg: `${prefix}/story33.jpg`,
+    },
+    {
+      id: 28,
+      date: "10/28/2025",
+      title: "Atlanta ahead – and more challenges",
+      text: "Higher speeds reveal flaws: the differential needs replacement. A crucial stop at FuelTech USA brings new allies.",
+      bg: `${prefix}/story34.jpg`,
+    },
+    {
+      id: 29,
+      date: "10/29/2025",
+      title: "Let’s go to Vegas!",
+      text: "New friends, a few crazy moments (like buying a bus), a small accident, and packed bags: next stop, the SEMA Show.",
+      bg: `${prefix}/story35.jpg`,
+    },
+  ];
 
   const onStepEnter = ({ data }) => {
     setCurrentStep(data);
     setIsAtEnd(data === story.length);
   };
 
+  useEffect(() => {
+    if (!autoScroll) return;
+
+    let direction = 1; 
+    const scrollSpeedDown = 1.0; 
+    const scrollSpeedUp = 35; 
+    const pauseBottom = 200; 
+    const pauseTop = 100; 
+    let stop = false;
+    let waitTimeout;
+
+    const scroll = () => {
+      if (!autoScroll || stop) return;
+
+      if (direction === 1) {
+        window.scrollBy(0, scrollSpeedDown);
+      } else {
+        window.scrollBy(0, -scrollSpeedUp);
+      }
+
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 5;
+      const atTop = window.scrollY <= 0;
+
+      if (atBottom && direction === 1) {
+        window.scrollTo(0, document.body.scrollHeight);
+        waitTimeout = setTimeout(() => {
+          if (!stop) {
+            direction = -1;
+            requestAnimationFrame(scroll);
+          }
+        }, pauseBottom);
+        return;
+      }
+
+      if (atTop && direction === -1) {
+        window.scrollTo(0, 0);
+        waitTimeout = setTimeout(() => {
+          if (!stop) {
+            direction = 1;
+            requestAnimationFrame(scroll);
+          }
+        }, pauseTop);
+        return;
+      }
+
+      requestAnimationFrame(scroll);
+    };
+
+    const animation = requestAnimationFrame(scroll);
+
+    return () => {
+      stop = true;
+      cancelAnimationFrame(animation);
+      clearTimeout(waitTimeout);
+    };
+  }, [autoScroll]);
+
   return (
     <div
       ref={containerRef}
-      className="relative w-full min-h-screen text-white snap-y snap-mandatory"
+      className="relative w-full h-auto text-white"
+      lang="pt-BR"
     >
-      {/* 🔹 Fundo cinematográfico */}
+      <div className="fixed top-4 right-4 z-50 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full shadow-lg hover:bg-black/60 transition-all duration-300">
+        <button
+          onClick={() => setAutoScroll((prev) => !prev)}
+          className="text-sm sm:text-base text-white font-semibold"
+        >
+          {autoScroll ? "🌀 Disable Auto Scroll" : "🌀 Enable Auto Scroll"}
+        </button>
+      </div>
+
       <motion.div
         style={{
           y: 0,
@@ -280,7 +347,7 @@ export default function StoryPage() {
           transition={{ duration: 1 }}
         />
 
-        <div className="absolute top-0 left-0 right-0 h-48 min-[1025px]:h-64 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" />
       </motion.div>
 
       {/* 🔹 Conteúdo da timeline */}
@@ -290,12 +357,12 @@ export default function StoryPage() {
         <Scrollama onStepEnter={onStepEnter} offset={0.6}>
           {story.map((s, i) => {
             const isLeft = i % 2 === 0;
-            const imagePath = s.img || s.bg; // ✅ usa img se existir, senão bg
+            const imagePath = s.img || s.bg;
 
             return (
               <Step data={i} key={s.id}>
                 <div className="h-[100vh] snap-start flex items-center justify-center relative">
-                  {/* 🔸 Marcador central (só desktop) */}
+                  {/* 🔸 Marcador central */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 hidden min-[1025px]:flex flex-col items-center z-20">
                     <motion.div
                       className="w-4 h-4 rounded-full border-2 border-white bg-white/20 shadow-lg"
@@ -388,17 +455,17 @@ export default function StoryPage() {
         className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm py-8 text-center z-20 px-4 sm:px-8"
       >
         <div className="text-gray-300 text-sm uppercase tracking-widest mb-2">
-          Obrigado por acompanhar
+          Thank you for following
         </div>
 
         <h2 className="text-xl sm:text-2xl min-[1025px]:text-3xl font-bold text-white drop-shadow-lg mb-4 leading-snug">
-          Isso é apenas o começo...
+          This is just the beginning...
         </h2>
 
         {/* 🔹 Ícones do Instagram */}
         <div className="flex justify-center gap-6 mb-4">
           <a
-            href="https://www.instagram.com/segattipedro_?igsh=MTViZXRnY2J6bjJ2bg%3D%3D&utm_source=qr"
+            href="https://www.instagram.com/segattipedro_"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram Pedro"
@@ -408,7 +475,7 @@ export default function StoryPage() {
           </a>
 
           <a
-            href="https://www.instagram.com/eduardomokfa?igsh=MTB3cGNyNXB3d2YycQ=="
+            href="https://www.instagram.com/eduardomokfa"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram Eduardo"
@@ -420,7 +487,7 @@ export default function StoryPage() {
 
         {/* 🔸 Créditos */}
         <p className="text-gray-400 text-xs sm:text-sm">
-          Site criado por fãs — uma homenagem não oficial.
+          Website created by fans — an unofficial tribute.
         </p>
       </motion.footer>
     </div>
