@@ -66,7 +66,7 @@ export default function StoryPage() {
       id: 7,
       date: "09/01/2025",
       title: "Engine inspection and preparation",
-      text: "Projeto Engine Shop steps in, performing measurements and preparing it for forged pistons.",
+      text: "Retífica Projeto steps in, performing measurements and preparing it for forged pistons.",
       bg: `${prefix}/story7.jpg`,
     },
     {
@@ -152,7 +152,7 @@ export default function StoryPage() {
       id: 19,
       date: "10/08/2025",
       title: "Friends that will never be forgotten",
-      text: "The Karavan faces transmission issues, but Pilô, Dio, and Sek perform miracles to fix it.",
+      text: "The Karavan faces transmission issues, but Pilô, Dio, and Sek Parts perform miracles to fix it.",
       bg: `${prefix}/story22.jpg`,
       img: `${prefix}/story21.jpg`,
     },
@@ -226,8 +226,46 @@ export default function StoryPage() {
       id: 29,
       date: "10/29/2025",
       title: "Let’s go to Vegas!",
-      text: "New friends, a few crazy moments (like buying a bus), a small accident, and packed bags: next stop, the SEMA Show.",
+      text: "New friends, a few crazy moments (like buying a bus) and packed bags: next stop, the SEMA Show.",
       bg: `${prefix}/story35.jpg`,
+    },
+    {
+      id: 30,
+      date: "10/29/2025",
+      title: "A small accident and another challenge",
+      text: "In a moment of carelessness, the Karavan suffers a minor accident on the way to Vegas. During a sudden brake, one of the convoy cars collided with the rear of the Karavan. We needed more parts shipped from Brazil.",
+      bg: `${prefix}/story36.jpg`,
+    },
+    {
+      id: 31,
+      date: "10/30/2025",
+      title: "Injector Replacement",
+      text: "The Karavan shows some issues upon returning to the road. The fuel injectors are replaced, and a minor maintenance is performed on the fuel pump.",
+      bg: `${prefix}/story37.jpg`,
+    },
+    {
+      id: 32,
+      date: "10/31/2025",
+      title: "Another Sleepless Night",
+      text: "With no time to waste, we drove through the night to arrive on time — a quick stop, the sun rising, and more roads ahead to conquer.",
+      bg: `${prefix}/story39.jpg`,
+      img: `${prefix}/story38.jpg`,
+    },
+    {
+      id: 33,
+      date: "10/31/2025",
+      title: "We’ve Arrived!",
+      text: "Finally, Vegas. From Miami to Vegas, many miles traveled and another challenge overcome. Excited for the battle ahead.",
+      bg: `${prefix}/story41.jpg`,
+      img: `${prefix}/story40.jpg`,
+    },
+    {
+      id: 34,
+      date: "",
+      title: "Credits",
+      text: "The story goes on, but here’s a thank you to everyone who has been part of this incredible journey so far — to all who helped build it and to those who made it happen. Also, a huge thank you to the more than 40,000 people who encourage and follow the daily livestreams of this adventure. You are amazing!",
+      bg: `${prefix}/story41.jpg`,
+      img: `${prefix}/logo.png`,
     },
   ];
 
@@ -447,7 +485,6 @@ export default function StoryPage() {
         </Scrollama>
       </div>
 
-      {/* 🔹 Footer translúcido */}
       <motion.footer
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: isAtEnd ? 1 : 0, y: isAtEnd ? 0 : 100 }}
@@ -462,7 +499,6 @@ export default function StoryPage() {
           This is just the beginning...
         </h2>
 
-        {/* 🔹 Ícones do Instagram */}
         <div className="flex justify-center gap-6 mb-4">
           <a
             href="https://www.instagram.com/segattipedro_"
