@@ -23,7 +23,7 @@ export default function StoryPage() {
       date: "",
       title: "Karavan ACF",
       text: "The story behind the first foreigner to compete at the SEMA Show.",
-      bg: `${prefix}/logo1.png`,
+      bg: `${prefix}/story41.jpg`,
       img: `${prefix}/logo.png`,
     },
     {
