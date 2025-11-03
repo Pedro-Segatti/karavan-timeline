@@ -261,7 +261,7 @@ export default function StoryPage() {
     },
     {
       id: 34,
-      date: "11/30/2025",
+      date: "11/03/2025",
       title: "Finally, SEMA Show 2025!",
       text: "Many challenges, fears, and insecurities, but also a lot of perseverance and learning. We’ve arrived at the SEMA Show 2025 — the first foreign vehicle to compete in the world’s largest customization event. A historic achievement for all of us who have followed this incredible journey! We are proud and grateful to be part of this story. We’re already winners!",
       bg: `${prefix}/story44.jpg`,
